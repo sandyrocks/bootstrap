@@ -1,0 +1,39 @@
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+</div>
+<div class ="col-md-6">
+<h1>Listing posts</h1>
+<div class="table-responsive">
+            <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.id %></td>
+        <td><%= post.name %></td>
+        <td><%= post.age %></td>
+        <td><%= link_to 'Show', post , :class => 'btn active btn-xs btn-primary' %></td>
+        <td><%= link_to 'Edit', edit_post_path(post), :class => 'btn active btn-xs btn-success' %></td>
+        <td><%= link_to 'Destroy', post, :class => 'btn active btn-xs btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+<%= link_to 'New Post', new_post_path %>
+</div>
+</div>
+
+
+
