@@ -1,16 +1,104 @@
 <div class="container">
-<% i = 1 %>
-<% @posts.each do |post| %>
-<div class="well">
-	<h3><%= i %>:<%= post.title %></h3>
-	<p><%= post.blog %></p>
-	<p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-success active ' %></p>
-	<p><%= "Posted By #{get_post_name(post.user_id)} #{time_ago_in_words(post.created_at)} ago" %></p>
-  <p><%= "#{count_comments(post.id)} Comments" %></p>
-  <% i += 1 %>
- </div>
-<% end %>
+  <% i = 1 %>
+  <div class="row">
+       <div class="col-md-4 ">
+        <div id="sidebar" class=" col col-sm-3 affix">
+          <div class="panel panel-default">
+                  <div class="panel-heading"><h4>Newest Posts</h4></div>
+                    <div class="panel-body">
+                      <div class="list-group">
+                        <ul class="nav nav-stacked" >
+                        <% @posts.each do |post| %>
+                        <li> <%= link_to "#{post.title}", post_path(post), :class => 'list-group-item' %></li>
+                        <% end %>
+                      </ul>
+                      </div>
+                    </div>
+                </div>
+          </div>
+      </div>
+      <div class="col-md-8">
+          <div class="panel panel-default">
+                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Tabs</h4></div>
+                  <div class="panel-body">
 
-<%= will_paginate @posts %>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#A" data-toggle="tab">Ruby On Rails</a></li>
+                        <li class=""><a href="#B" data-toggle="tab">Sql</a></li>
+                        <li><a href="#C" data-toggle="tab">Bootstrap</a></li>
+                      </ul>
+                      <div class="tabbable">
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="A">
+                            <div class="well well-sm">
+                                  <% @posts.each do |post| %>
+                                  <div class="row">
+                                      <div class="col-md-2">
+                                        <% @profile = Profile.find_by_user_id(post.user_id) %>
+                                         <%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' if @profile.avatar.present?%>
+                                      </div>
+                                      <div class="col-md-10">
+                                        <h3><%= i %>:<%= post.title %></h3>
+                                        <p style="text-align:justify;"><%= post.blog %></p>
+                                        <p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-primary pull-right btnNext active ' %></p>
+                                        <p><%= "Posted By #{get_post_name(post.user_id)} #{time_ago_in_words(post.created_at)} ago" %></p>
+                                        <p><%= "#{count_comments(post.id)} Comments" %></p>
+                                        <% i += 1 %>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                <% end %>
 
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="B">
+                            <div class="well well-sm">
+                                <% @posts.each do |post| %>
+                                  <div class="row">
+                                      <div class="col-md-2">
+                                        <% @profile = Profile.find_by_user_id(post.user_id) %>
+                                         <%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' if @profile.avatar.present?%>
+                                      </div>
+                                      <div class="col-md-10">
+                                        <h3><%= i %>:<%= post.title %></h3>
+                                        <p style="text-align:justify;"><%= post.blog %></p>
+                                        <p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-primary pull-right btnNext active ' %></p>
+                                        <p><%= "Posted By #{get_post_name(post.user_id)} #{time_ago_in_words(post.created_at)} ago" %></p>
+                                        <p><%= "#{count_comments(post.id)} Comments" %></p>
+                                        <% i += 1 %>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                <% end %>
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="C">
+                            <div class="well well-sm">
+                                <% @posts.each do |post| %>
+                                  <div class="row">
+                                      <div class="col-md-2">
+                                        <% @profile = Profile.find_by_user_id(post.user_id) %>
+                                         <%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' if @profile.avatar.present?%>
+                                      </div>
+                                      <div class="col-md-10">
+                                        <h3><%= i %>:<%= post.title %></h3>
+                                        <p style="text-align:justify;"><%= post.blog %></p>
+                                        <p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-primary pull-right btnNext active ' %></p>
+                                        <p><%= "Posted By #{get_post_name(post.user_id)} #{time_ago_in_words(post.created_at)} ago" %></p>
+                                        <p><%= "#{count_comments(post.id)} Comments" %></p>
+                                        <% i += 1 %>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- /tabbable -->
+                  </div>
+          </div>
+      </div>
+
+
+  </div>
 </div>

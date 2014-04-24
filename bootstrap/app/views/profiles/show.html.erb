@@ -22,8 +22,12 @@
 
 <p>
   <strong>Country:</strong>
+  
   <%= @profile.country %>
 </p>
-<%= image_tag @profile.avatar.url %>
+<div class="img-circle">
+<%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' %>
+</div>
+
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
