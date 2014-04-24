@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+      @comments = Comment.where("post_id=?",params[:id]) if params[:id].present?
   end
 
   # GET /posts/new
@@ -25,7 +26,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.user_id = current_user.id
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -61,6 +62,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def blog
+    @posts = Post.paginate(:page => params[:page], :per_page => 5)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -69,6 +74,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :age)
+      params.require(:post).permit(:blog,:user_id, :category_id,:title, :link)
     end
 end

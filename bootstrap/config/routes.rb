@@ -3,7 +3,9 @@ Bootstrap::Application.routes.draw do
 
   devise_for :users
   resources :posts
-
+  resources :posts do
+    resources :comments
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -11,7 +13,7 @@ Bootstrap::Application.routes.draw do
    root 'posts#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  get '/blog' => 'posts#blog'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
