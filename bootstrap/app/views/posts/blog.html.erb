@@ -1,10 +1,10 @@
 <div class="container">
 <% i = 1 %>
 <% @posts.each do |post| %>
-<div class="jumbotron">
+<div class="well">
 	<h3><%= i %>:<%= post.title %></h3>
 	<p><%= post.blog %></p>
-	<p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-primary active' %></p>
+	<p><%= link_to 'Continue Reading.... ', post_path(post) , :class => 'btn btn-success active ' %></p>
 	<p><%= "Posted By #{get_post_name(post.user_id)} #{time_ago_in_words(post.created_at)} ago" %></p>
   <p><%= "#{count_comments(post.id)} Comments" %></p>
   <% i += 1 %>

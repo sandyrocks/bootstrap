@@ -3,14 +3,17 @@
 <div class="row">
 <div class="col-md-6">
 
-  <h4>Title: <%= @post.title %></h4>
+  <h1>Title: <%= @post.title %></h1>
 
-  <h4>Description: <%= @post.blog %></h4>
+  <h4 style="text-align:justify;">Description: <%= @post.blog %></h4>
   
   <h4>Link: <%= link_to @post.link, "http://#{@post.link}" %></h4>
   <h3>Comments</h3>	
   <% @comments.each do |comment| %>
+    <div class="well">
+    <h3><%= get_post_name(comment.user_id) if comment.user_id %> Says:</h3>
   	<h4><%= comment.comment %></h4>
+    </div>
   <% end %>
 
   <br/>
@@ -20,3 +23,4 @@
 </div>
 </div>	
 </div>
+

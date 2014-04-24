@@ -29,6 +29,7 @@
               <% if current_user %>
                 <li class="active"><a href="#">Welcome <%= get_welcome_name %></a></li>
                 <li class="active"><%= link_to 'Logout', destroy_user_session_path, :method => :delete  %></li>
+                <li class="active"><%= link_to 'Profile', new_profile_path %></li>
               <% end  %>
           </ul>
           </div><!--/.nav-collapse -->
