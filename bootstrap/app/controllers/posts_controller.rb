@@ -64,6 +64,7 @@ class PostsController < ApplicationController
 
   def blog
     @posts = Post.paginate(:page => params[:page], :per_page => 5)
+    @profile_show = User.find(current_user.id).profile
   end
 
   private
