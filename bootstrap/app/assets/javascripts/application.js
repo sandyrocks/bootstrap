@@ -15,3 +15,29 @@
 //= require bootstrap.min
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+	$('#like_link').click(function(){
+		var post_id = $(this).attr('title')
+		var like_or_unlike =  $(this).text();
+		var key = 0;
+		if(like_or_unlike == 'Like') {
+           key = 1	          
+		}
+		$.ajax({
+		    type: 'get',
+			url: '/likes/index',
+			data:{id :post_id, key :key},
+			success: function(data){
+				 if(key) {
+				 	$('#like_link').html('Unlike');
+				 }else {
+				 	$('#like_link').html('Like');
+				 }
+
+				 $('#like_id').html(data);
+				
+			}
+		})
+	})
+})

@@ -8,7 +8,14 @@ class CommentsController < ApplicationController
 	end
 
 	def edit
+		@comment = Comment.find_by_id(params[:id]) if params[:id].present?
+	end
 
+	def update
+		@comment = Comment.find_by_id(params[:id])
+		post_id = @comment.post_id
+		@comment.update(comment_params)
+		redirect_to post_path(post_id)
 	end
 
 	private

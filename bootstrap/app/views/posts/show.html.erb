@@ -1,34 +1,43 @@
 <div class="container">
-<p id="notice"><%= notice %></p>
-<div class="row">
-<div class="col-md-6">
-
-  <h1>Title: <%= @post.title %></h1>
-
-  <h4 style="text-align:justify;">Description: <%= @post.blog %></h4>
-
-  <h4>Link: <%= link_to @post.link, "http://#{@post.link}" %></h4>
-  <h3>Comments</h3>
-  <% @comments.each do |comment| %>
-    <div class="well">
-      <div class="row">
-        <div class="col-md-4">
-          <h3><%= get_post_name(comment.user_id) if comment.user_id %> Says:</h3>
-  	       <h4><%= replace_smilies(replace_smilies(comment.comment, true),true) %></h4>
-        </div>
-        <div class="col-md-4 pull-right">
-          <% @profile = Profile.where(:user_id => comment.user_id).first %>
-          <%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' if @profile%>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-  <br/>
-  <%= render 'comment' %>
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
-</div>
-</div>
+	<p id="notice"><%= notice %></p>
+	<div class="row">
+		<div class="col-md-6">
+			
+			<h1>Title: <%= @post.title %></h1>
+			<h4 style="text-align:justify;">Description: <%= @post.blog %></h4>
+			<h4>Link: <%= link_to @post.link, "http://#{@post.link}" %></h4>
+			 <% if @post.likes.where("post_id =? and  user_id=? and like=?",@post.id,current_user.id,true).present? %>
+  			<%= link_to 'Unlike', likes_index_path, :id => 'like_link', :title => "#{@post.id}", :remote => true %>
+  			<% else %>
+  			<%= link_to 'Like', likes_index_path, :id => 'like_link', :title => "#{@post.id}", :remote => true %>
+  			<% end %>
+  			<hr>
+  			<div id="like_id">
+  				<%= show_all_likes_count(@post.id,current_user.id) %>
+  			</div>
+  			<h3>Comments</h3>
+  		
+  		<% @comments.each do |comment| %>
+		    <div class="well">
+		      <div class="row">
+		        <div class="col-md-4">
+		          <h3><%= get_post_name(comment.user_id) if comment.user_id %> Says:</h3>
+		  	      <h4><%= replace_smilies(replace_smilies(comment.comment, true),true) %></h4>
+		  	      <%= link_to 'Edit Comment', "/edit_comment/#{comment.id}" %>
+		        </div>
+		        <div class="col-md-4 pull-right">
+		          <% @profile = Profile.where(:user_id => comment.user_id).first %>
+		          <%= image_tag @profile.avatar.url, :class=> 'img-circle' ,:width => '100px', :height => '100px' if @profile%>
+		        </div>
+		      </div>
+		    </div>
+		  <% end %>
+			
+			<br/>
+  		<%= render 'comment' %>
+			<%= link_to 'Edit', edit_post_path(@post) %> |
+			<%= link_to 'Back', posts_path %>
+		</div>
+	</div>
 </div>
 

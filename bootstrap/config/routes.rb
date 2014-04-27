@@ -1,4 +1,5 @@
 Bootstrap::Application.routes.draw do
+  get "/likes/index" => 'likes#index'
   resources :profiles
 
   resources :categories
@@ -17,6 +18,8 @@ Bootstrap::Application.routes.draw do
   # Example of regular route:
   get '/blog' => 'posts#blog'
 
+  get '/edit_comment/:id' => 'comments#edit' , as: :edit
+  get '/update_comment/:id' => 'comments#update' , as: :update
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
